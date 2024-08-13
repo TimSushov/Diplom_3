@@ -17,10 +17,10 @@ public class RegisterUserTest {
     private String email = Credential.EMAIL;
     private String password = Credential.PASSWORD;
     private String name = Credential.NAME;
-    private String passwordWrong = Credential.RANDOM;
 
     BrowserWebdrivers browserWebdrivers = new BrowserWebdrivers();
     WebDriver driver = browserWebdrivers.chromeWebdriver();
+    UserSteps userSteps;
 
     @Before
     public void tearUp(){
@@ -34,7 +34,7 @@ public class RegisterUserTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         constructorPage.clickLoginInAccountButton();
         loginPage.clickRegisterHypertext();
@@ -43,7 +43,6 @@ public class RegisterUserTest {
         registerPage.setPasswordTextField(password);
         registerPage.clickRegisterButton();
         loginPage.checkEntranceHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -53,7 +52,7 @@ public class RegisterUserTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         constructorPage.clickPersonalAccountButton();
         loginPage.clickRegisterHypertext();
@@ -62,28 +61,11 @@ public class RegisterUserTest {
         registerPage.setPasswordTextField(password);
         registerPage.clickRegisterButton();
         loginPage.checkEntranceHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
-    }
-
-    @Test
-    @DisplayName("Регистрация пользователя срабатывает валидация пароля")
-    @Description("Пользователь создается")
-    public void registerUserCheckPasswordValidation(){
-        ConstructorPage constructorPage = new ConstructorPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        RegisterPage registerPage = new RegisterPage(driver);
-
-        constructorPage.clickLoginInAccountButton();
-        loginPage.clickRegisterHypertext();
-        registerPage.setNameTextField(name);
-        registerPage.setEmailTextField(email);
-        registerPage.setPasswordTextField(passwordWrong);
-        registerPage.clickRegisterButton();
-        registerPage.checkPasswordValidation();
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
+        userSteps.deleteUser(userSteps.getToken(email, password));
         driver.quit();
     }
 }

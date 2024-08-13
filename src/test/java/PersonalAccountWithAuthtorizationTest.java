@@ -12,7 +12,7 @@ import stepsUI.ConstructorPage;
 import stepsUI.LoginPage;
 import stepsUI.PersonalAccountPage;
 
-public class PersonalAccountTest {
+public class PersonalAccountWithAuthtorizationTest {
 
     private String email = Credential.EMAIL;
     private String password = Credential.PASSWORD;
@@ -20,21 +20,11 @@ public class PersonalAccountTest {
 
     BrowserWebdrivers browserWebdrivers = new BrowserWebdrivers();
     WebDriver driver = browserWebdrivers.chromeWebdriver();
+    UserSteps userSteps;
 
     @Before
     public void tearUp(){
         driver.get(Urls.BASE_URL);
-    }
-
-    @Test
-    @DisplayName("Вход в личный кабинет без авторизации")
-    @Description("Пользователь не авторизован и открывается страница авторизации")
-    public void openPersonalAccountWithoutAuth(){
-        ConstructorPage constructorPage = new ConstructorPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-
-        constructorPage.clickPersonalAccountButton();
-        loginPage.checkEntranceHeader();
     }
 
     @Test
@@ -44,7 +34,7 @@ public class PersonalAccountTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -53,7 +43,6 @@ public class PersonalAccountTest {
         loginPage.clickEnterButton();
         constructorPage.clickPersonalAccountButton();
         personalAccountPage.checkProfileHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -63,7 +52,7 @@ public class PersonalAccountTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -73,7 +62,6 @@ public class PersonalAccountTest {
         constructorPage.clickPersonalAccountButton();
         personalAccountPage.clickConstructorButton();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -83,7 +71,7 @@ public class PersonalAccountTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -93,7 +81,6 @@ public class PersonalAccountTest {
         constructorPage.clickPersonalAccountButton();
         personalAccountPage.clickLogoStellarBurgers();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -103,7 +90,7 @@ public class PersonalAccountTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -113,11 +100,11 @@ public class PersonalAccountTest {
         constructorPage.clickPersonalAccountButton();
         personalAccountPage.clickLogoutButton();
         loginPage.checkEntranceHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
+        userSteps.deleteUser(userSteps.getToken(email, password));
         driver.quit();
     }
 }

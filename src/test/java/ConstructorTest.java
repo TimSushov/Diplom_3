@@ -5,12 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import resours.BrowserWebdrivers;
-import resours.Credential;
 import resours.Urls;
-import stepsApi.UserSteps;
 import stepsUI.ConstructorPage;
-import stepsUI.LoginPage;
-import stepsUI.PersonalAccountPage;
+
 
 public class ConstructorTest {
 
@@ -25,7 +22,7 @@ public class ConstructorTest {
     @Test
     @DisplayName("Переход к разделу Булки")
     @Description("Скролл страницы до раздела Булки")
-    public void scrollToСhapterBun(){
+    public void scrollToChapterBun(){
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.checkBunChapter();
     }
@@ -33,7 +30,7 @@ public class ConstructorTest {
     @Test
     @DisplayName("Переход к разделу Соусы")
     @Description("Скролл страницы до раздела Соусы")
-    public void scrollToСhapterSauce(){
+    public void scrollToChapterSauce(){
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.checkSauceChapter();
     }
@@ -41,13 +38,13 @@ public class ConstructorTest {
     @Test
     @DisplayName("Переход к разделу Начинки")
     @Description("Скролл страницы до раздела Начинки")
-    public void scrollToСhapterFilling(){
+    public void scrollToChapterFilling(){
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.checkFillingChapter();
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         driver.quit();
     }
 }

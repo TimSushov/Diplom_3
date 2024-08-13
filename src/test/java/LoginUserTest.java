@@ -21,6 +21,7 @@ public class LoginUserTest {
 
     BrowserWebdrivers browserWebdrivers = new BrowserWebdrivers();
     WebDriver driver = browserWebdrivers.chromeWebdriver();
+    UserSteps userSteps;
 
     @Before
     public void tearUp(){
@@ -33,7 +34,7 @@ public class LoginUserTest {
     public void loginUserLoginInAccountButton(){
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -41,7 +42,6 @@ public class LoginUserTest {
         loginPage.setPasswordTextField(password);
         loginPage.clickEnterButton();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class LoginUserTest {
     public void loginUserPersonalAccountButton(){
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickPersonalAccountButton();
@@ -58,7 +58,6 @@ public class LoginUserTest {
         loginPage.setPasswordTextField(password);
         loginPage.clickEnterButton();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -68,7 +67,7 @@ public class LoginUserTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -78,7 +77,6 @@ public class LoginUserTest {
         loginPage.setPasswordTextField(password);
         loginPage.clickEnterButton();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @Test
@@ -88,7 +86,7 @@ public class LoginUserTest {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         RecoveryPasswordPage recoveryPasswordPage = new RecoveryPasswordPage(driver);
-        UserSteps userSteps = new UserSteps();
+        userSteps = new UserSteps();
 
         userSteps.createUser(email, password, name, 200);
         constructorPage.clickLoginInAccountButton();
@@ -98,11 +96,11 @@ public class LoginUserTest {
         loginPage.setPasswordTextField(password);
         loginPage.clickEnterButton();
         constructorPage.checkCreateBurgerHeader();
-        userSteps.deleteUser(userSteps.getToken(email, password));
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
+        userSteps.deleteUser(userSteps.getToken(email, password));
         driver.quit();
     }
 }
